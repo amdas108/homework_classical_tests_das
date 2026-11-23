@@ -25,8 +25,9 @@ format:
 Загрузите необходимые пакеты и установите seed.
 
 ```{r load-packages}
+library(tidyverse)
 
-
+set.seed(21)
 ```
 
 ## Загрузка и проверка данных
