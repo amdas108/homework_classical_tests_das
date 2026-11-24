@@ -220,7 +220,23 @@ t.test(men$BPSysAve,
 Посчитайте ключевые статистики для переменных `BPSysAve` и `BPDiaAve` в вашем чистом наборе данных `nhanes_clean`.
 
 ```{r descriptive-stats-BPSysAve-BPDiaAve}
+mean_sys <- mean(nhanes_clean$BPSysAve)
+sd_sys <- sd(nhanes_clean$BPSysAve)
+n_sys <- sum(!is.na(nhanes_clean$BPSysAve))
 
+mean_dia <- mean(nhanes_clean$BPDiaAve)
+sd_dia <- sd(nhanes_clean$BPDiaAve)
+n_dia <- sum(!is.na(nhanes_clean$BPDiaAve))
+
+cat("Систолическое давление:\n")
+cat("Среднее значение:", mean_sys, "\n")
+cat("Стандартное отклонение:", sd_sys, "\n")
+cat("Размер выборки:", n_sys, "\n\n")
+
+cat("Диастолическое давление:\n")
+cat("Среднее значение:", mean_dia, "\n")
+cat("Стандартное отклонение:", sd_dia, "\n")
+cat("Размер выборки:", n_dia, "\n")
 ```
 
 **Дополнительно (необязательное задание)** Визуализируйте эти параметры. Используйте боксплот, свяжите линиями измерения одного пациента.
