@@ -450,7 +450,12 @@ ggplot(pressure_long, aes(x = PressureType, y = Pressure)) +
 Используя выбранный тест, проверьте гипотезы из задания 5.1 на уровне значимости α = 0.1.
 
 ```{r test-pressure-5}
-
+wilcox.test(nhanes_clean$BPSysAve,
+            nhanes_clean$BPDiaAve,
+            paired = TRUE,
+            alternative = "two.sided",
+            conf.int = TRUE,
+            conf.level = 0.90)
 ```
 
 #### Задание 5.5
