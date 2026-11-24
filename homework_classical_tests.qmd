@@ -239,7 +239,36 @@ cat("Стандартное отклонение:", sd_dia, "\n")
 cat("Размер выборки:", n_dia, "\n")
 ```
 
-**Дополнительно (необязательное задание)** Визуализируйте эти параметры. Используйте боксплот, свяжите линиями измерения одного пациента.
+**Дополнительно (необязательное задание)** Визуализируйте эти параметры. Используйте боксплот, 
+свяжите линиями измерения одного пациента.
+```{r descriptive-stats-BPSysAve-BPDiaAve}
+pressure_long <- pivot_longer(
+  nhanes_clean,
+  cols = c(BPSysAve, BPDiaAve),
+  names_to = "PressureType",
+  values_to = "Pressure"
+)
+
+pressure_long$PressureType <- factor(
+  pressure_long$PressureType,
+  levels = c("BPSysAve", "BPDiaAve"),
+  labels = c("Систолическое", "Диастолическое")
+)
+
+ggplot(pressure_long, aes(x = PressureType, y = Pressure)) +
+  geom_line(aes(group = ID, color = ID), alpha = 0.15, show.legend = FALSE) +
+  geom_boxplot(aes(fill = PressureType), alpha = 0.7, outlier.shape = NA) +
+  labs(
+    title = "Сравнение систолического \n и диастолического давления",
+    x = "Тип артериального давления",
+    y = "Давление, мм рт. ст."
+  ) +
+  theme_classic() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
+```
 
 #### Задание 3.3
 
