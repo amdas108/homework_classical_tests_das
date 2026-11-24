@@ -350,7 +350,12 @@ cat("Количество женщин:", n_women, "\n")
 Проверьте гипотезы из задания 4.1 на уровне значимости α = 0.1.
 
 ```{r bmi-gender-test}
-
+wilcox.test(men$BMI,
+            women$BMI,
+            alternative = "two.sided",
+            paired = FALSE,
+            conf.int = TRUE,
+            conf.level = 0.90)
 ```
 
 #### Задание 4.5
