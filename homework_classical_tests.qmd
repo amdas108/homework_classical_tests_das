@@ -155,14 +155,33 @@ t.test(nhanes_clean$BMI,
 Посчитайте ключевые статистики (среднее в каждой группе, стандартное отклонение, размер каждой группы) для переменной `BPSysAve` в вашем чистом наборе данных `nhanes_clean`. Группы определяются переменной `Gender`.
 
 ```{r stats-BPSysAve}
+men <- filter(nhanes_clean, Gender == "male")
+women <- filter(nhanes_clean, Gender == "female")
 
+mean_men <- mean(men$BPSysAve)
+sd_men <- sd(men$BPSysAve)
+n_men <- nrow(men)
+
+mean_women <- mean(women$BPSysAve)
+sd_women <- sd(women$BPSysAve)
+n_women <- nrow(women)
+
+cat("Мужчины:\n")
+cat("Среднее давление:", mean_men, "\n")
+cat("Стандартное отклонение:", sd_men, "\n")
+cat("Размер группы:", n_men, "\n\n")
+
+cat("Женщины:\n")
+cat("Среднее давление:", mean_women, "\n")
+cat("Стандартное отклонение:", sd_women, "\n")
+cat("Размер группы:", n_women, "\n")
 ```
 
 #### Задание 2.3
 
 Выберите подходящий статистический тест для проверки гипотез из задания 2.1 и объясните свой выбор.
 
-*(ответ студента)*
+Выберем двувыборочный т-критерий Стьюдента (тест Вэлча). 
 
 #### Задание 2.4
 
