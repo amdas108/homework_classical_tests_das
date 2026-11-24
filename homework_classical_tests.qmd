@@ -380,7 +380,27 @@ p-значение = 0,534 и превышает уровень значимос
 Посчитайте ключевые статистики для переменных `BPSysAve` и `BPDiaAve` в вашем чистом наборе данных `nhanes_clean`. Обратите внимание, что это иные статистики, чем в задании 3.
 
 ```{r descriptive-stats-pressure-alternative}
+median_sys <- median(nhanes_clean$BPSysAve, na.rm = TRUE)
+q1_sys <- quantile(nhanes_clean$BPSysAve, 0.25, na.rm = TRUE)
+q3_sys <- quantile(nhanes_clean$BPSysAve, 0.75, na.rm = TRUE)
+n_sys <- sum(!is.na(nhanes_clean$BPSysAve))
 
+median_dia <- median(nhanes_clean$BPDiaAve, na.rm = TRUE)
+q1_dia <- quantile(nhanes_clean$BPDiaAve, 0.25, na.rm = TRUE)
+q3_dia <- quantile(nhanes_clean$BPDiaAve, 0.75, na.rm = TRUE)
+n_dia <- sum(!is.na(nhanes_clean$BPDiaAve))
+
+cat("Систолическое давление:\n")
+cat("Медиана:", median_sys, "\n")
+cat("Первый квартиль:", q1_sys, "\n")
+cat("Третий квартиль:", q3_sys, "\n")
+cat("Размер выборки:", n_sys, "\n\n")
+
+cat("Диастолическое давление:\n")
+cat("Медиана:", median_dia, "\n")
+cat("Первый квартиль:", q1_dia, "\n")
+cat("Третий квартиль:", q3_dia, "\n")
+cat("Размер выборки:", n_dia, "\n")
 ```
 
 **Дополнительно (необязательное задание)** Визуализируйте эти параметры. Используйте скрипичный график и боксплот, свяжите линиями измерения одного пациента. Визуально оцените, как выглядит распределение обеих переменных.
