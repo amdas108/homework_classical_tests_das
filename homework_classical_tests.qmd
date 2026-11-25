@@ -483,12 +483,42 @@ wilcox.test(nhanes_clean$BPSysAve,
 #### Задание 6.2
 
 Постройте таблицу сопряженности и визуализируйте ее. Исходя из полученной таблицы и иллюстрации, как вам кажется, похожи ли наши признаки на независимые? Почему?
-
 ```{r}
+sleep_activity_table <- table(
+  nhanes_clean$PhysActive,
+  nhanes_clean$SleepTrouble
+)
 
+sleep_activity_table
 ```
+```{r}
+sleep_activity_data <- as.data.frame(
+  prop.table(sleep_activity_table, margin = 1)
+)
 
-*(ответ студента)*
+colnames(sleep_activity_data) <- c(
+  "Физическая активность",
+  "Проблемы со сном",
+  "Доля"
+)
+
+ggplot(sleep_activity_data,
+       aes(x = `Физическая активность`,
+           y = Доля,
+           fill = `Проблемы со сном`)) +
+  geom_col(position = "stack") +
+  labs(
+    title = "Проблемы со сном в зависимости от физической активности",
+    x = "Физическая активность",
+    y = "Доля участников",
+    fill = "Проблемы со сном"
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  theme_classic() +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
+```
 
 #### Задание 6.3
 
