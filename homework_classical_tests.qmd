@@ -748,10 +748,36 @@ p-значение = 2.2e-16 гораздо меньше установленн�
 Постройте диаграмму рассеяния, которая позволит визуализировать связь между изучаемыми переменными.
 
 ```{r plot-education-income}
+education_income$Education <- factor(
+  education_income$Education,
+  levels = c(
+    "8th Grade",
+    "9 - 11th Grade",
+    "High School",
+    "Some College",
+    "College Grad"
+  )
+)
 
+ggplot(education_income, aes(x = Education, y = HHIncome)) +
+  geom_jitter(
+    width = 0.15,
+    height = 0.15,
+    alpha = 0.2
+  ) +
+  labs(
+    title = "Связь уровня образования и дохода домохозяйства",
+    x = "Уровень образования",
+    y = "Доход домохозяйства"
+  ) +
+  theme_classic() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(angle = 90, hjust = 1)
+  )
 ```
 
-*(ответ студента)*
+На графике можно заметить положительную связь: среди участников с более высоким уровнем образования чаще встречаются более высокие доходы домохозяйства. Однако есть и участники с высоким образованием и низким доходом, поэтому зависимость не однозначна.
 
 #### Задание 8.3
 
