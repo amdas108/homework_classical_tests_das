@@ -788,10 +788,53 @@ ggplot(education_income, aes(x = Education, y = HHIncome)) +
 Оцените величину наблюдаемого эффекта.
 
 ```{r test-education-income}
+education_income$Education <- factor(
+  education_income$Education,
+  levels = c(
+    "8th Grade",
+    "9 - 11th Grade",
+    "High School",
+    "Some College",
+    "College Grad"
+  ),
+  ordered = TRUE
+)
 
+education_income$HHIncome <- factor(
+  education_income$HHIncome,
+  levels = c(
+    "0-4999",
+    "5000-9999",
+    "10000-14999",
+    "15000-19999",
+    "20000-24999",
+    "25000-34999",
+    "35000-44999",
+    "45000-54999",
+    "55000-64999",
+    "65000-74999",
+    "75000-99999",
+    "more 99999"
+  ),
+  ordered = TRUE
+)
+
+spearman_test <- cor.test(
+  as.numeric(education_income$Education),
+  as.numeric(education_income$HHIncome),
+  method = "spearman",
+  alternative = "two.sided",
+  exact = FALSE
+)
+
+spearman_test
 ```
 
-*(ответ студента)*
+Выберем ранговый коэффициент корреляции Спирмена, тк исследуется связь одной ранговой переменной (Education) сравнивается с другой (HHIncome). Помимо этого оценивается монотонная связь: увеличивается ли доход домохозяйства при повышении уровня образования.
+
+Перед расчётом необходимо правильно упорядочить уровни обеих переменных.
+
+Значение rho = 0.44281 и p-значение < 2.2e-16, что значит статистически значимая умеренная положительная монотонная связь между образованием и доходом домохозяйства (более высокому уровню образования в целом соответствует более высокий доход домохозяйства, однако уровень образования не определяет доход полностью). Нулевую гипотезу отвергаем. 
 
 #### Задание 8.4
 
