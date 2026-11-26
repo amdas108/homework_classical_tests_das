@@ -57,14 +57,14 @@ cat("Количество строк:", nrow(data), "\n")
 cat("Количество столбцов:", ncol(data), "\n")
 ```
 
-```{r prepare-data}
+```{r prepare-data2}
 glimpse(data)
 ```
 
-```{r prepare-data}
+```{r prepare-data3}
 colSums(is.na(data))
 ```
-```{r prepare-data}
+```{r prepare-data4}
 nhanes <- select(
   data,
   ID, Gender, Age, BMI, BPSysAve, BPDiaAve,
@@ -76,7 +76,7 @@ nhanes <- filter(nhanes, Age >= 18)
 
 nhanes_clean <- drop_na(nhanes)
 ```
-```{r prepare-data}
+```{r prepare-data5}
 cat("Количество участников:", nrow(nhanes_clean), "\n")
 cat("Количество переменных:", ncol(nhanes_clean), "\n")
 ```
@@ -242,7 +242,7 @@ cat("Размер выборки:", n_dia, "\n")
 
 **Дополнительно (необязательное задание)** Визуализируйте эти параметры. Используйте боксплот, 
 свяжите линиями измерения одного пациента.
-```{r descriptive-stats-BPSysAve-BPDiaAve}
+```{r descriptive-stats-BPSysAve-BPDiaAve2}
 pressure_long <- pivot_longer(
   nhanes_clean,
   cols = c(BPSysAve, BPDiaAve),
@@ -406,7 +406,7 @@ cat("Размер выборки:", n_dia, "\n")
 
 **Дополнительно (необязательное задание)** Визуализируйте эти параметры. Используйте скрипичный график и боксплот, свяжите линиями измерения одного пациента. Визуально оцените, как выглядит распределение обеих переменных.
 
-```{r descriptive-stats-pressure-alternative-plot}
+```{r descriptive-stats-pressure-alternative-plot2}
 pressure_long <- pivot_longer(
   nhanes_clean,
   cols = c(BPSysAve, BPDiaAve),
@@ -649,7 +649,7 @@ ggplot(height_weight, aes(x = Height)) +
     plot.title = element_text(hjust = 0.5)
   )
 ```
-```{r plot-height-weight}
+```{r plot-height-weight2}
 ggplot(height_weight, aes(x = Weight)) +
   geom_histogram(
     bins = 30,
@@ -666,7 +666,7 @@ ggplot(height_weight, aes(x = Weight)) +
     plot.title = element_text(hjust = 0.5)
   )
 ```
-```{r plot-height-weight}
+```{r plot-height-weight3}
 ggplot(height_weight, aes(x = Height, y = Weight)) +
   geom_point(
     alpha = 0.3,
@@ -711,9 +711,11 @@ cor_test <- cor.test(
   alternative = "two.sided",
   conf.level = 0.95
 )
+r <- cor_test$estimate
+r_squared <- r^2 
 
-cat("Коэффициент корреляции Пирсона (r):", cor_test$estimate, "\n")
-cat("p-значение",cor_test$p.value, "\n")
+cat("Коэффициент корреляции Пирсона (r):", r, "\n")
+cat("p-значение", cor_test$p.value, "\n")
 cat("Коэффициент детерминации:", r_squared, "\n")
 ```
 
@@ -748,6 +750,13 @@ p-значение = 2.2e-16 гораздо меньше установленн�
 Постройте диаграмму рассеяния, которая позволит визуализировать связь между изучаемыми переменными.
 
 ```{r plot-education-income}
+education_income <- filter(
+  nhanes_clean,
+  Age >= 18,
+  !is.na(Education),
+  !is.na(HHIncome)
+)
+
 education_income$Education <- factor(
   education_income$Education,
   levels = c(
